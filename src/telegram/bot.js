@@ -56,7 +56,6 @@ export async function startTelegramBot(){
   );
 });
 
-${lines}`,reviewsMenu()); });
  botInstance.action('add_review',async ctx=>{ await ctx.answerCbQuery(); await upsertSession(ctx.from.id,{state:'waiting_review_text'}); await ctx.reply('أرسل نص التقييم الآن'); });
  botInstance.action('my_order_info',async ctx=>{ await ctx.answerCbQuery(); const binding=await getBindingForUser(ctx.from.id); if(!binding) return ctx.reply('لا يوجد طلب مرتبط بك حاليًا'); const used=await getUsageCount(binding.orderId); await ctx.reply(`معلومات طلبك
 رقم الطلب: ${binding.orderId}#
