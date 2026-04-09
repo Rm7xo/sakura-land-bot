@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model OrderBinding {
+  id                Int      @id @default(autoincrement())
+  orderId           String   @unique
+  telegramUserId    BigInt
+  telegramUsername  String?
+  telegramFirstName String?
+  telegramLastName  String?
+  platform          String
+  accountId         String
+  boundAt           DateTime @default(now())
+  status            String   @default("active")
+}
+
+model OrderUsageDaily {
+  id         Int      @id @default(autoincrement())
+  orderId    String
+  usageDate  String
+  usageCount Int      @default(0)
+  updatedAt  DateTime @updatedAt
+  @@unique([orderId, usageDate], name: "orderId_usageDate")
+}
+
+model GenerationLog {
+  id               Int      @id @default(autoincrement())
+  orderId          String
+  telegramUserId   BigInt
+  platform         String
+  accountId        String
+  result           String
+  codeMaskedOrHash String
+  createdAt        DateTime @default(now())
+}
+
+model SecurityLog {
+  id             Int      @id @default(autoincrement())
+  telegramUserId BigInt?
+  orderId        String?
+  eventType      String
+  reason         String
+  metadataJson   String?
+  createdAt      DateTime @default(now())
+}
+
+model UserSession {
+  id               Int      @id @default(autoincrement())
+  telegramUserId   BigInt   @unique
+  state            String
+  selectedPlatform String?
+  selectedAccount  String?
+  flowMessageId    BigInt?
+  startedAt        DateTime @default(now())
+  expiresAt        DateTime?
+  updatedAt        DateTime @updatedAt
+}
+
+model BlockedUser {
+  id             Int      @id @default(autoincrement())
+  telegramUserId BigInt   @unique
+  reason         String
+  blockedUntil   DateTime
+  createdAt      DateTime @default(now())
+}
+
+model AdminUser {
+  id             Int      @id @default(autoincrement())
+  telegramUserId BigInt   @unique
+  role           String   @default("admin")
+  status         String   @default("active")
+  createdAt      DateTime @default(now())
+}
+
+model Review {
+  id             Int      @id @default(autoincrement())
+  telegramUserId BigInt
+  orderId        String?
+  rating         Int
+  reviewText     String
+  status         String   @default("published")
+  createdAt      DateTime @default(now())
+}
+
+model OAuthToken {
+  id          Int      @id @default(autoincrement())
+  provider    String   @unique
+  accessToken String
+  refreshToken String?
+  tokenType   String?
+  expiresIn   Int?
+  scope       String?
+  installedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

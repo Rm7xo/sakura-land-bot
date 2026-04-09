@@ -1,0 +1,26 @@
+{
+  "telegram": {
+    "bot_username": "SakuraLandBot",
+    "admin_chat_id": "-1001234567890"
+  },
+  "bot": {
+    "name": "Sakura Land",
+    "daily_limit": 3,
+    "order_timeout_minutes": 5,
+    "delete_order_message": true,
+    "show_remaining_after_success": true
+  },
+  "security": {
+    "bind_order_to_first_user": true,
+    "block_if_order_used_by_another_user": true,
+    "max_failed_attempts": 5,
+    "temporary_block_minutes": 30,
+    "notify_admin_on_suspicious_attempt": true
+  },
+  "images": {
+    "welcome": "assets/welcome.jpg",
+    "platforms": "assets/platforms.jpg",
+    "reviews": "assets/reviews.jpg",
+    "steam": "assets/steam.jpg"
+  }
+}

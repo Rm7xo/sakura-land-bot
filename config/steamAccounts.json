@@ -1,0 +1,11 @@
+{
+  "steam_accounts": [
+    {
+      "id": "steam_1",
+      "name": "Rm7",8R+odKzj2IuAgFBRk5SOMXc9fPw
+      "shared_secret": "=",
+      "daily_limit": 3,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+import { Markup } from 'telegraf';
+import { getSteamAccounts } from '../steam/steam.js';
+export function mainMenu(){ return Markup.inlineKeyboard([[Markup.button.callback('📱 المنصات','platforms')],[Markup.button.callback('📦 متابعة الطلب','track_order')],[Markup.button.callback('🕓 أوقات العمل','working_hours')],[Markup.button.callback('📜 الشروط والأحكام','terms')],[Markup.button.callback('📘 طريقة استخدام البوت','how_to_use')],[Markup.button.callback('⭐ تقييمات العملاء','reviews')],[Markup.button.callback('ℹ️ معلومات الطلب','my_order_info')],[Markup.button.callback('🆘 طلب مساعدة','request_help')],[Markup.button.callback('📞 الدعم الفني','support')]]); }
+export function platformsMenu(){ return Markup.inlineKeyboard([[Markup.button.callback('🎮 Steam','platform_steam')],[Markup.button.callback('⬅️ رجوع','back_main')]]); }
+export function steamAccountsMenu(){ const rows=getSteamAccounts().map(acc=>[Markup.button.callback(acc.name,`account_${acc.id}`)]); rows.push([Markup.button.callback('⬅️ رجوع','platforms'),Markup.button.callback('❌ إلغاء','cancel_flow')]); return Markup.inlineKeyboard(rows); }
+export function reviewsMenu(){ return Markup.inlineKeyboard([[Markup.button.callback('➕ إضافة تقييم','add_review')],[Markup.button.callback('⬅️ رجوع','back_main')]]); }
