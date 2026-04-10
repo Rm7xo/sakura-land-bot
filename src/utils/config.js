@@ -1,20 +1,19 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const readJson = (relativePath) => {
-  const fullPath = path.resolve(process.cwd(), relativePath);
-  const raw = fs.readFileSync(fullPath, 'utf8');
-  return JSON.parse(raw);
+// عشان نحدد المسار الصحيح
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// نطلع خطوة لفوق (من utils → src) ثم ندخل config
+const basePath = path.join(__dirname, '..', 'config');
+
+export const loadJsonFile = (file) => {
+  const fullPath = path.join(basePath, file);
+  return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
 };
 
-export const loadJsonFile = (relativePath) => {
-  return readJson(relativePath);
-};
+export const loadAppConfig = () => loadJsonFile('app.config.json');
 
-export const loadAppConfig = () => {
-  return readJson('config/app.config.json');
-};
-
-export const loadSteamAccountsConfig = () => {
-  return readJson('config/steamAccounts.json');
-};
+export const loadSteamAccountsConfig = () => loadJsonFile('steamAccounts.json');
