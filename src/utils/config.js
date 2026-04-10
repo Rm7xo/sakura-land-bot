@@ -2,26 +2,21 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// نحدد مكان الملف الحالي
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// هذا يرجع من src/utils إلى src ثم يدخل config
-const basePath = path.join(__dirname, '..', 'config');
+// نطلع من utils → src → ثم ندخل config
+const basePath = path.resolve(__dirname, '../config');
 
+// قراءة ملف JSON
 const readJson = (fileName) => {
   const fullPath = path.join(basePath, fileName);
-  const raw = fs.readFileSync(fullPath, 'utf8');
-  return JSON.parse(raw);
+  console.log('Loading config from:', fullPath); // عشان نتأكد باللوق
+  return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
 };
 
-export const loadJsonFile = (fileName) => {
-  return readJson(fileName);
-};
-
-export const loadAppConfig = () => {
-  return readJson('app.config.json');
-};
-
-export const loadSteamAccountsConfig = () => {
-  return readJson('steamAccounts.json');
-};
+// الدوال
+export const loadJsonFile = (fileName) => readJson(fileName);
+export const loadAppConfig = () => readJson('app.config.json');
+export const loadSteamAccountsConfig = () => readJson('steamAccounts.json');
